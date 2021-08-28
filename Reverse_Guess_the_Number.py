@@ -1,4 +1,8 @@
 def reverse_guess_the_number():
+    """
+    Computer will try guess your number.
+    :return:
+    """
     print("Choose in Your mind  number from 1 to 1000 and i guess your number.")
     min_number = 0
     max_number = 1000
@@ -12,6 +16,7 @@ def reverse_guess_the_number():
                     Write number:
                     """)
             try:
+#If input() isn"t int() program run exception: ValueError
                 if int(answer) == ValueError:
                     break
                 elif int(answer) == 3:
