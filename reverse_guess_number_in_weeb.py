@@ -4,21 +4,21 @@ app = Flask(__name__)
 
 @app.route("/guess", methods=["GET", "POST"])
 def reverse_guess():
-    minimal = request.form.get("minimal", 0)
-    maximum = request.form.get("maximum", 1000)
+    lower = request.form.get("minimal", 0, type=int)
+    higher = request.form.get("maximum", 1000, type=int)
     guess = request.form.get("guess")
-    answer = request.form.get("option")
+    answer = request.form.get("option", type=int)
 
-    if answer == "maximum":
-        maximum = guess
-    elif answer == "minimal":
-        minimal = guess
+    if guess is not None:
+        if answer == "minimal":
+            minimal = guess
+        elif answer == "maximum":
+            maximum = guess
+    guess = (higher - lower)//2 + lower
 
-    guess = (maximum - minimal)//2 + minimal
-
-    form = f"""<form method="POST>
-            <input Type='hidden' value='{minimal}' name="minimal">
-            <input Type='hidden' value='{maximum}' name="maximum">
+    form = f"""<form method="POST">
+            <input Type='hidden' value='{lower}' name="minimal">
+            <input Type='hidden' value='{higher}' name="maximal">
             <input Type'text' value='{guess}' name="guess">
                 <select name="options">
                     <option value="maximum">To big</option>
